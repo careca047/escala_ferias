@@ -26,8 +26,8 @@ class Posto(models.Model):
 
     class Tipo(models.TextChoices):
         PATIO = "patio", "Pátio"
-        CENTRAL = "central", "Central de rádio"
-        OPERACIONAL = "operacional", "Serviço de rua"
+        CENTRAL_RADIO = "central_radio", "Central de rádio"
+        SERVICO_RUA = "servico_rua", "Serviço de rua"
 
     nome = models.CharField(max_length=20, choices=Tipo.choices, unique=True)
 

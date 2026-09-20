@@ -59,8 +59,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# Banco de dados: lê DATABASE_URL (Postgres, ex. Supabase/Neon) quando definida;
-# cai para SQLite local em desenvolvimento quando não houver.
+# Banco de dados: usa DATABASE_URL (Postgres, ex. Supabase/Neon) quando definida
+# e não vazia; cai para SQLite local em desenvolvimento quando não houver.
 DATABASE_URL = config("DATABASE_URL", default="")
 
 if DATABASE_URL:

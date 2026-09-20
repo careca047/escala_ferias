@@ -15,8 +15,9 @@ Estrutura inicial do projeto Django, baseada na especificação consolidada
 - Todos os models já registrados no Django Admin, com listagens e filtros
   básicos — o operador já consegue cadastrar funcionários, plantões,
   postos e capacidades assim que o banco estiver rodando.
-- Grupo de permissões "Operador de Escala" criado automaticamente na
-  migração (`ferias/migrations/0002_grupo_operador.py`), com acesso de
+- Grupo de permissões "Operador de Escala": rode `python manage.py criar_grupo_operador`
+  depois do `migrate`. Ele fica definido em
+  `ferias/management/commands/criar_grupo_operador.py`, com acesso de
   edição só aos models operacionais (Ciclo, Preferências, Alocações,
   Histórico) e de visualização aos estruturais (Funcionário, Plantão,
   Posto, Capacidade) — sem acesso a Usuários/Grupos.
@@ -48,10 +49,11 @@ Estrutura inicial do projeto Django, baseada na especificação consolidada
    Em desenvolvimento, pode deixar `DATABASE_URL` como está — sem uma
    connection string do Postgres, o projeto cai para SQLite local
    automaticamente.
-4. Rode as migrações e crie um usuário administrador:
+4. Rode as migrações, crie um usuário administrador e crie o grupo do operador:
    ```bash
    python manage.py migrate
    python manage.py createsuperuser
+   python manage.py criar_grupo_operador
    ```
 5. Suba o servidor:
    ```bash
@@ -65,8 +67,8 @@ Estrutura inicial do projeto Django, baseada na especificação consolidada
   Acesso total a tudo no admin.
 - **Usuário do operador**: crie pelo próprio admin (Usuários > Adicionar
   usuário), marque "Membro da equipe" (não marque "Superusuário"), e
-  vincule ao grupo "Operador de Escala" — ele já existe assim que você
-  rodar `migrate`.
+  vincule ao grupo "Operador de Escala" — criado ao rodar
+  `python manage.py criar_grupo_operador`.
 - O login do admin nunca dá acesso ao código-fonte, ao repositório ou à
   hospedagem — são credenciais completamente separadas.
 
