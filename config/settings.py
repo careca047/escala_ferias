@@ -18,6 +18,14 @@ SECRET_KEY = config("SECRET_KEY", default="django-insecure-troque-esta-chave-em-
 DEBUG = config("DEBUG", default=True, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1", cast=Csv())
 
+# Necessário para o admin funcionar corretamente atrás do proxy HTTPS do Render
+# (sem isso, o login no /admin/ falha com erro de verificação CSRF).
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS", default="https://*.onrender.com", cast=Csv()
+)
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

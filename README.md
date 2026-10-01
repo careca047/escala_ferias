@@ -72,6 +72,32 @@ Estrutura inicial do projeto Django, baseada na especificação consolidada
 - O login do admin nunca dá acesso ao código-fonte, ao repositório ou à
   hospedagem — são credenciais completamente separadas.
 
+## Publicando (Render + Supabase)
+
+**Build Command** (cola no painel do Render):
+```
+pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate && python manage.py criar_grupo_operador && python manage.py createsuperuser --noinput || true
+```
+
+**Start Command**:
+```
+gunicorn config.wsgi
+```
+
+**Variáveis de ambiente no Render**:
+
+| Nome | Valor |
+|---|---|
+| `SECRET_KEY` | gerada pelo próprio Render (botão "Generate") |
+| `DEBUG` | `False` |
+| `ALLOWED_HOSTS` | o domínio `.onrender.com` do serviço |
+| `DATABASE_URL` | connection string do Supabase |
+| `DJANGO_SUPERUSER_USERNAME` | seu usuário admin (remover depois do 1º deploy) |
+| `DJANGO_SUPERUSER_EMAIL` | seu e-mail (remover depois do 1º deploy) |
+| `DJANGO_SUPERUSER_PASSWORD` | senha temporária (remover depois do 1º deploy) |
+
+O Build Command roda `migrate` e `criar_grupo_operador` a cada deploy (os dois são seguros de repetir). O `createsuperuser` só funciona uma vez — depois que o usuário já existe, ele falha de propósito (por isso o `|| true` no final, pra não travar os próximos deploys) — remova as 3 variáveis `DJANGO_SUPERUSER_*` do Render assim que confirmar que o login funciona.
+
 ## Próximos passos de infraestrutura (definidos anteriormente)
 
 - Hospedagem: Render (free tier).
