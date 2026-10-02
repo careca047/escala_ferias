@@ -103,6 +103,3 @@ O Build Command roda `migrate` e `criar_grupo_operador` a cada deploy (os dois s
 - Hospedagem: Render (free tier).
 - Banco de dados: Postgres gratuito e persistente via Supabase ou Neon
   (não usar o Postgres gratuito do próprio Render, que expira em 30 dias).
-
-#anotações do banco no supabase, s&nh#: 3MztldkFppfpAlny
-#URL do supabase postgresql://postgres.szfvunyalgyttppuiibu:[3MztldkFppfpAlny]@aws-0-us-east-2.pooler.supabase.com:5432/postgres
