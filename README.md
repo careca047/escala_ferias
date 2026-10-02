@@ -72,12 +72,20 @@ Estrutura inicial do projeto Django, baseada na especificação consolidada
 - O login do admin nunca dá acesso ao código-fonte, ao repositório ou à
   hospedagem — são credenciais completamente separadas.
 
+## Versão do Python
+
+O arquivo `.python-version` trava o projeto na versão 3.12, uma versão madura e
+bem testada com Django, psycopg2 e as demais dependências. Sem esse arquivo, o
+Render usa a versão padrão dele, que pode ser bem mais recente (e menos testada
+pelo ecossistema) do que o ideal para esse projeto.
+
 ## Publicando (Render + Supabase)
 
 **Build Command** (cola no painel do Render):
 ```
-pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate && python manage.py criar_grupo_operador && python manage.py createsuperuser --noinput || true
+pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate && python manage.py criar_grupo_operador && (python manage.py createsuperuser --noinput || true)
 ```
+Os parênteses no final são importantes: sem eles, uma falha em qualquer comando anterior (collectstatic, migrate, etc.) fica mascarada como sucesso.
 
 **Start Command**:
 ```
